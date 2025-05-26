@@ -8,7 +8,7 @@ import Home from './pages/Home/home'
 import Login from './pages/Login/login'
 import Register from './pages/Register/register'
 import User from './pages/User/user'
-import Layout from './layouts/header/header'
+import Layout from './layouts/header'
 
 
 
