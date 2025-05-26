@@ -8,6 +8,7 @@ import Home from './pages/Home/home'
 import Login from './pages/Login/login'
 import Register from './pages/Register/register'
 import User from './pages/User/user'
+import Layout from './layouts/header/header'
 
 
 
@@ -37,32 +38,24 @@ const App = () => {
 
   return (
 
-
     <BrowserRouter>
+      <Layout>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/user" element={<User />} />
       </Routes>
+      </Layout>
       
       <div className="container">
-        <Card title="Card 1" description="This is the first card" time="10:00 AM" 
-          onDelete={handleDelete} onEdit={handleEdit} onMoreInfo={handleMoreInfo}
-        />
-        <Card title="Card 2" description="This is the second card" time="11:00 AM" 
-          onDelete={handleDelete} onEdit={handleEdit} onMoreInfo={handleMoreInfo}
-        />
-        <Card title="Card 3" description="This is the third card" time="12:00 PM" 
-          onDelete={handleDelete} onEdit={handleEdit} onMoreInfo={handleMoreInfo}
-        />
-
+        
         <button onClick={addToast}>Add Toast</button>
         {toasts.map((toast) => (
-          <Toast key={toast.id} message={toast.message} onClose={() => removeToast(toast.id)} />
+            <Toast key={toast.id} message={toast.message} onClose={() => removeToast(toast.id)} />
         ))}
 
-      </div>
+    </div>
     </BrowserRouter>
   )
 }
