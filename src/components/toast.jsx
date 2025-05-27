@@ -5,6 +5,8 @@ export default function Toast({ message, onClose }) {
     const [isClosing, setIsClosing] = useState(false);
 
     useEffect(() => {
+        let removeTimer;
+
         const closeTimer = setTimeout(() => {
             setIsClosing(true);
 
@@ -13,10 +15,12 @@ export default function Toast({ message, onClose }) {
                 onClose();
             }, 1000);
 
-            return () => clearTimeout(removeTimer);
         }, 1500);
 
-        return () => clearTimeout(closeTimer);
+        return () => {
+            clearTimeout(closeTimer);
+            clearTimeout(removeTimer);
+        };
     }, [onClose]);
 
     if (!visible) return null;

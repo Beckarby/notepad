@@ -1,7 +1,5 @@
 import { useState } from 'react'
-import Card from './components/card'
 import Toast from './components/toast'
-import Input from './components/input'
 import './App.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Home from './pages/Home/home'
@@ -11,13 +9,13 @@ import User from './pages/User/user'
 import Layout from './layouts/header'
 
 
-
 const App = () => {
   const [toasts, setToasts] = useState([]);
-  const addToast = () => {
+  
+  const addToast = (message) => {
     const newToast = {
       id: Date.now(),
-      message: 'This is a toast message',
+      message,
     };
     setToasts((prevToasts) => [...prevToasts, newToast]);
   }
@@ -25,37 +23,30 @@ const App = () => {
     setToasts((prevToasts) => prevToasts.filter((toast) => toast.id !== id));
   }
 
-  const handleDelete = () => {
-    console.log('Toast closed');
-  }
-  const handleEdit = () => {
-    console.log('Toast closed');
-  }
-  const handleMoreInfo = () => {
-    console.log('Toast closed');
-  }
-
-
+  
   return (
 
     <BrowserRouter>
       <Layout>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={
+            <Home 
+                onDelete={() => addToast("Card deleted")}
+                onEdit={() => addToast("Card edited")}
+                onMoreInfo={() => addToast("More info about the card")}
+            />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/user" element={<User />} />
       </Routes>
+      {toasts.map((toast) => (
+            <Toast 
+                key={toast.id} 
+                message={toast.message} 
+                onClose={() => removeToast(toast.id)} 
+            />
+      ))}
       </Layout>
-      
-      <div className="container ">
-        
-        <button onClick={addToast}>Add Toast</button>
-        {toasts.map((toast) => (
-            <Toast key={toast.id} message={toast.message} onClose={() => removeToast(toast.id)} />
-        ))}
-
-    </div>
     </BrowserRouter>
   )
 }
