@@ -3,6 +3,7 @@
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import './header.css';
+import '../App.css';
 
 
 export default function Layout({ children }) {
@@ -29,7 +30,7 @@ export default function Layout({ children }) {
     return (
         <div className='app-container'>
             <header className="header">
-                <img src="/logo.jpg" alt="Logo" className="header-logo" />
+                <Link to="/"><img src="/logo.png" alt="Logo" className="header-logo" /></Link>
                 <p className='header-brand'>Expedition Diary</p>
                 <div className='header-content'>
                 <nav>
@@ -41,13 +42,17 @@ export default function Layout({ children }) {
                     </ul>
                 </nav>
                 <button className='theme-toggle' onClick={toggleTheme} aria-label='Toggle Theme'>
-                    {isDarkMode ? "☀️" : "🌙"}  
+                    {/* {isDarkMode ? src="/light.png" : src="/dark.png"} */}
+                    <img src={isDarkMode ? "/bright.png" : "/dark.png"} alt="Toggle Theme" className='theme-image' />  
                 </button>
                 </div>
             </header>
-            <main className='content'>
-                {children}
-            </main>
+            <div className='scrollable-content'>
+                <main className='content'>
+                    {children}  
+                </main>
+            </div>
+
         </div>
     )
 }

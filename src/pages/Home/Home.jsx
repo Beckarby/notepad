@@ -17,6 +17,11 @@ const Home = () => {
         <Card title="Card 3" description="This is the third card" time="12:00 PM" 
         onDelete={handleDelete} onEdit={handleEdit} onMoreInfo={handleMoreInfo}
         />
+        <Card title="Card 4" description="This is the fourth card" time="1:00 PM"
+        onDelete={handleDelete} onEdit={handleEdit} onMoreInfo={handleMoreInfo}
+        />
+        
+
     </div>
 
     

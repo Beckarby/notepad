@@ -48,7 +48,7 @@ const App = () => {
       </Routes>
       </Layout>
       
-      <div className="container">
+      <div className="container ">
         
         <button onClick={addToast}>Add Toast</button>
         {toasts.map((toast) => (

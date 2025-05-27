@@ -27,4 +27,6 @@ export default function Toast({ message, onClose }) {
       <p>{message}</p>
     </div>
   );
+
+  
 }
