@@ -31,7 +31,7 @@ export default function Layout({ children }) {
         <div className='app-container'>
             <header className="header">
                 <Link to="/"><img src="/logo.png" alt="Logo" className="header-logo" /></Link>
-                <p className='header-brand'>Expedition Diary</p>
+                <p className='header-brand'>Expedition Journal</p>
                 <div className='header-content'>
                 <nav>
                     <ul>

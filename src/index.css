@@ -1,13 +1,8 @@
 :root,
 .dark {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: DoublePica, EB Garamond, Montserrat, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
-  /* color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424; */
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -28,7 +23,7 @@
 
 .light {
   --bg-primary: #ffffff;
-  --text-primary: #213547;
+  --text-primary: #000000;
   --text-secondary: #64748b;
   --accent-primary: #646cff;
   --accent-hover: #747bff;
@@ -38,6 +33,30 @@
   --scrollbar-track: rgba(0, 0, 0, 0.1);
   --scrollbar-thumb: rgba(0, 0, 0, 0.3);
   --scrollbar-thumb-hover: rgba(0, 0, 0, 0.5);
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(fonts/Montserrat/Montserrat-VariableFont_wght.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'EB Garamond';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(fonts/EB_Garamond/EBGaramond-VariableFont_wght.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'DoublePica';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(fonts/Double_Pica/IMFellDoublePica-Regular.ttf) format('truetype');
 }
 
 a {
@@ -114,7 +133,6 @@ button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
-
 
 .card {
   background-color: var(--card-bg);
