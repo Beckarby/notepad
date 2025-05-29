@@ -1,0 +1,35 @@
+.toast {
+  opacity: 1;
+  transform: translateY(0);
+  padding: 10px;
+  background: #333;
+  color: white;
+  border-radius: 8px;
+  border: 2px solid #333;
+  position: fixed;
+  bottom: 15px;
+  right: 15px;
+  z-index: 1000;
+  align-items: center;
+  gap: 10px;
+  animation: slideIn 0.3s ease-out;
+  
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+}
+.toast-closing {
+  opacity: 0;
+  transform: translateY(100px);
+  transition: all 0.4s ease-out;
+}
+

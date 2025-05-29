@@ -1,5 +1,5 @@
-import Card from '../../components/card';
-import Modal from '../../components/modal';
+import Card from '../../components/Card/card';
+import Modal from '../../components/Modal/modal';
 
 const Home = ({ onDelete, onEdit, onMoreInfo}) => {
     return (

@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
-import Modal from "./modal";
+import Modal from "../Modal/modal";
+import './card.css';
 
 export default function Card({ title, description, time, onDelete, onEdit, onMoreInfo }) {
     const [isModalOpen, setIsModalOpen] = useState(false);

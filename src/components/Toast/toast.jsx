@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import './toast.css'; 
 
 export default function Toast({ message, onClose }) {
     const [visible, setVisible] = useState(true);

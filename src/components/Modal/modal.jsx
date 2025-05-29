@@ -1,7 +1,7 @@
 "use client";
 import { useRef, useEffect, useState } from "react";
 import { X } from 'lucide-react'
-import '../App.css';
+import './modal.css'; 
 
 export default function Modal({ isOpen, onClose, hasCloseBtn, children }) {
     const modalRef = useRef(null);  

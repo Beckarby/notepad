@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import Toast from './components/toast'
+import Toast from './components/Toast/toast'
 import './App.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Home from './pages/Home/home'

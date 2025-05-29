@@ -143,12 +143,22 @@ button:focus-visible {
   min-width: 100px;
 }
 
+
 .container {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   width: 100%;
+}
+
+.container:hover > .card:not(:hover) {
+    filter: brightness(0.9);
+    opacity: 0.6;
+    transition:
+    filter 0.3s cubic-bezier(.68,-0.55,.27,1.55),
+    opacity 0.3s cubic-bezier(.68,-0.55,.27,1.55),
+    transform 0.3s cubic-bezier(.68,-0.55,.27,1.55);
 }
 
 .scrollable-content {
