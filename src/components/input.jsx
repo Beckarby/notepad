@@ -1,3 +1,4 @@
+"use client";
 import { useState } from "react";
 
 export default function Input({ label, type, placeholder, value, onChange }) {
