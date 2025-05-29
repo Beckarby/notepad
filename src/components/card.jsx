@@ -24,7 +24,6 @@ export default function Card({ title, description, time, onDelete, onEdit, onMor
         >
             <h2>{title}</h2>
             <p>{description}</p>
-            <button onClick={closeModal}>Close Modal</button>
         </Modal>
     </div>
   )

@@ -1,37 +1,57 @@
 "use client";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
+import { X } from 'lucide-react'
 import '../App.css';
 
 export default function Modal({ isOpen, onClose, hasCloseBtn, children }) {
-    const modalRef = useRef(null);
+    const modalRef = useRef(null);  
+    const [isClosing, setIsClosing] = useState(false);
 
     const handleCloseModal = () => {
-        if (onClose) {
-            onClose();
-        }
+        setIsClosing(true);
+        setTimeout(() => {
+            if (onClose) {
+                onClose();
+            }
+            setIsClosing(false);
+        }, 400);
     }
 
     const handleKeyDown = (e) => {
-        if (e.key === 'Escape') {
+        if (e.key === 'Escape' && isOpen && !isClosing) {
             handleCloseModal();
         }
     }
+
+    useEffect(() => {
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [isOpen, isClosing]);
+  
 
     useEffect(() => {
         const modalElement = modalRef.current;
         if (!modalElement) return;
         if (isOpen) {
             modalElement.showModal();
-        } else {
+        } else if (!isClosing){
             modalElement.close();
         }
-    }, [isOpen]);
+    }, [isOpen, isClosing]);
 
     return (
-        <dialog ref={modalRef} onKeyDown={handleKeyDown} className="modal">
+        <dialog 
+            ref={modalRef} 
+            onKeyDown={handleKeyDown} 
+            className={`modal ${isClosing ? 'closing' : ''}`}
+            >
             {hasCloseBtn && (
-                <button className="modal-close-btn" onClick={handleCloseModal} aria-label="Close Modal">
-                    Close
+                <button 
+                className="modal-close-btn" 
+                onClick={handleCloseModal} 
+                aria-label="Close Modal"
+                >
+                    <X size={20} />
                 </button>
             )}
             {children}
