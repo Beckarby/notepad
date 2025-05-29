@@ -45,7 +45,7 @@ I'm an Ogre. You know, grab your torch and pitchforks. Doesn't that bother you? 
 -Really really. Oh? Man, I like you. What's your name? A..., Shrek. Shrek?! But do you know, what I" time="10:00 AM" 
                 onDelete={onDelete} onEdit={onEdit} onMoreInfo={onMoreInfo}
             />
-            <Card title="Card 2" description="This is the second card" time="11:00 AM" 
+            <Card title="Card 2" description="This is the second cardAAAA AAAAAAA  AAAAAA AAAAA AAAAAAAAA AAAAAAA AAAAAAAAAAA AAAAAAAA AAAAAAAAA AAAAA" time="11:00 AM" 
                 onDelete={onDelete} onEdit={onEdit} onMoreInfo={onMoreInfo}
             />
             <Card title="Card 3" description="This is the third card" time="12:00 PM" 
