@@ -1,0 +1,53 @@
+.input-container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.5rem;
+  width: 100%;
+  padding: relative;
+}
+
+.input-container label {
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  font-size: 0.875rem;
+  text-transform: capitalize;
+  letter-spacing: 0.025em;
+}
+
+.input-container input {
+  padding: 0.85em 1.25em;
+  border: 1px solid var(--text-secondary);
+  border-radius: 12px;
+  background-color: var(--button-bg);
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 1rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 100%;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.input-container input:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 3px rgba(100, 108, 255, 0.1), 0 4px 12px rgba(100, 108, 255, 0.15);
+  transform: translateY(-1px);
+
+}
+
+.input-container input:hover:not(:focus) {
+  border-color: var(--accent-primary);
+  transform: translateY(-1px);
+}
+
+.input-container input::placeholder {
+  color: var(--text-secondary);
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+.input-container.floating {
+    position: relative;
+}

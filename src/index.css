@@ -143,6 +143,10 @@ button:focus-visible {
   min-width: 100px;
 }
 
+form {
+  margin-top: 30px;
+  gap: 2rem;
+}
 
 .container {
   display: flex;
