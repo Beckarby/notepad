@@ -4,10 +4,10 @@ import Modal from "../Modal/modal";
 import './card.css';
 
 export default function Card({ title, description, time, onDelete, onEdit, onMoreInfo }) {
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [openModal, setOpenModal] = useState(null);
     const charLimit = 30;
-    const openModal = () => setIsModalOpen(true); 
-    const closeModal = () => setIsModalOpen(false);
+    // const openModal = () => setOpenModal(true); 
+    // const closeModal = () => setOpenModal(false);
 
     const truncatedDescription = description.length > charLimit
   ? description.slice(0, charLimit) + '...'
@@ -19,16 +19,28 @@ export default function Card({ title, description, time, onDelete, onEdit, onMor
       <h2>{title}</h2>
       <p>{truncatedDescription}</p>
       <button onClick={onDelete}>Delete</button>
-      <button onClick={openModal}>Edit</button>
-      <button onClick={openModal}>More Info</button>
+      <button onClick={() => setOpenModal('edit')}>Edit</button>
+      <button onClick={() => setOpenModal('info')}>More Info</button>
 
         <Modal
-            isOpen={isModalOpen}
-            onClose={closeModal}
+            isOpen={openModal === 'info'}
+            onClose={() => setOpenModal(null)}
             hasCloseBtn={true}
         >
             <h2>{title}</h2>
             <p>{description}</p>
+        </Modal>
+
+        <Modal
+            isOpen={openModal === 'edit'}
+            onClose={() => setOpenModal(null)}
+            hasCloseBtn={true}
+        >
+            <h2>Edit {title}</h2>
+            <input
+            placeholder="Edit title"
+            type="text"
+            ></input>
         </Modal>
     </div>
   )
