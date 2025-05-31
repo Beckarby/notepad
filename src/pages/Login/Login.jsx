@@ -22,27 +22,29 @@ const Login = () => {
     return ( 
         <div>
             <h1>Login here</h1>
-            <form onSubmit={handleLogin}>
-                <div>
-                    <Input 
-                        label="Email" 
-                        type="email" 
-                        placeholder="Enter your email" 
-                        value={email} 
-                        onChange={setEmail} 
-                    />
-                </div>
-                <div>
-                    <Input 
-                        label="Password" 
-                        type="password" 
-                        placeholder="Enter your password" 
-                        value={password} 
-                        onChange={setPassword} 
-                    />
-                </div>
-                <button type="submit">Login</button>
-            </form>
+            <div className="form-content">            
+                <form onSubmit={handleLogin} className="form auth-form">
+                    <div>
+                        <Input 
+                            label="Email" 
+                            type="email" 
+                            placeholder="Enter your email" 
+                            value={email} 
+                            onChange={setEmail} 
+                        />
+                    </div>
+                    <div>
+                        <Input 
+                            label="Password" 
+                            type="password" 
+                            placeholder="Enter your password" 
+                            value={password} 
+                            onChange={setPassword} 
+                        />
+                    </div>
+                    <button type="submit">Login</button>
+                </form>
+            </div>
         </div>
     )
 }

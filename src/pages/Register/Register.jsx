@@ -15,52 +15,58 @@ const Register = () => {
         try {
             await createUserWithEmailAndPassword(auth, email, password);
             <Toast message="Registration successful!" onClose={() => {}} />;
+            
         } catch (err) {
             console.error("Registration error:", err);
         }
     }
     return (
-        <div>
+        <div className='auth-container'>
+            
             <h1>Register</h1>
-            <form onSubmit={handleRegister}>
-                <div>
-                    <Input 
-                        label="nick" 
-                        type="text" 
-                        placeholder="Enter your nickname" 
-                        value={nick} 
-                        onChange={setNick} 
-                    />
-                </div>
-                <div>
-                    <Input 
-                        label="email" 
-                        type="email" 
-                        placeholder="Enter your email" 
-                        value={email} 
-                        onChange={setEmail} 
-                    />
-                </div>
-                <div>
-                    <Input 
-                        label="password" 
-                        type="password" 
-                        placeholder="Enter your password" 
-                        value={password} 
-                        onChange={setPassword} 
-                    />
-                </div>
-                <div>
-                    <Input
-                        label="confirm password" 
-                        type="password" 
-                        placeholder="Confirm your password" 
-                        value={confirmPassword} 
-                        onChange={setConfirmPassword}
-                    />
-                </div>
-                <button type="submit">Register</button>
-            </form>
+            <div className='form-content'>
+                <form onSubmit={handleRegister} className='form auth-form'>
+                    <div>
+                        <Input 
+                            label="nick" 
+                            type="text" 
+                            placeholder="Enter your nickname" 
+                            value={nick} 
+                            onChange={setNick} 
+                        />
+                    </div>
+                    <div>
+                        <Input 
+                            label="email" 
+                            type="email" 
+                            placeholder="Enter your email" 
+                            value={email} 
+                            onChange={setEmail} 
+                        />
+                    </div>
+                    <div>
+                        <Input 
+                            label="password" 
+                            type="password" 
+                            placeholder="Enter your password" 
+                            value={password} 
+                            onChange={setPassword} 
+                        />
+                    </div>
+                    <div>
+                        <Input
+                            label="confirm password" 
+                            type="password" 
+                            placeholder="Confirm your password" 
+                            value={confirmPassword} 
+                            onChange={setConfirmPassword}
+                        />
+                    </div>
+                    <button type="submit">Register</button>
+                </form>
+                
+            </div>
+            <div className='auth-bg'></div>
         </div>
     )
 }

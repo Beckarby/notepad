@@ -1,13 +1,13 @@
 .input-container {
   display: flex;
   flex-direction: column;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   width: 100%;
   padding: relative;
 }
 
 .input-container label {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.2rem;
   font-weight: 500;
   color: var(--text-primary);
   font-size: 0.875rem;
