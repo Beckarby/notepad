@@ -3,26 +3,36 @@ import { createUserWithEmailAndPassword } from 'firebase/auth';
 import Toast from '../../components/Toast/toast';
 import Input from '../../components/Input/input';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
     const [nick, setNick] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [toast, setToast] = useState(null);
+    const navigate = useNavigate();
 
     const handleRegister = async (e) => {
         e.preventDefault();
         try {
             await createUserWithEmailAndPassword(auth, email, password);
-            <Toast message="Registration successful!" onClose={() => {}} />;
-            
+            setToast({
+                message: "Registration successful! Redirecting to login...",
+                onClose: () => {
+                    setToast(null);
+                    navigate('/login');
+                }
+            });
         } catch (err) {
             console.error("Registration error:", err);
         }
     }
     return (
         <div className='auth-container'>
-            
+            {toast && (
+                <Toast message={toast.message} onClose={toast.onClose} />
+            )}
             <h1>Register</h1>
             <div className='form-content'>
                 <form onSubmit={handleRegister} className='form auth-form'>

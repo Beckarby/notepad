@@ -3,17 +3,26 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
 import Toast from "../../components/Toast/toast";
 import Input from "../../components/Input/input";
+import { useNavigate } from "react-router-dom";
 
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [toast, setToast] = useState(null);   
+    const navigate = useNavigate();
 
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
             await signInWithEmailAndPassword(auth, email, password);
-            <Toast message="Login successful!" onClose={() => {}} />;
+            setToast({
+                message: "Login successful! Redirecting to home page...",
+                onClose: () => {
+                    setToast(null);
+                    navigate('/');
+                }
+            })
         } catch (err) {
             console.error("Login error:", err);
         }
@@ -21,6 +30,12 @@ const Login = () => {
 
     return ( 
         <div>
+            {toast && (
+                <Toast 
+                    message={toast.message} 
+                    onClose={toast.onClose} 
+                />
+            )}
             <h1>Login here</h1>
             <div className="form-content">            
                 <form onSubmit={handleLogin} className="form auth-form">

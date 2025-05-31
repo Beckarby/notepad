@@ -12,7 +12,7 @@ export default function Toast({ message, onClose }) {
         const closeTimer = setTimeout(() => {
             setIsClosing(true);
 
-            const removeTimer = setTimeout(() => {
+            removeTimer = setTimeout(() => {
                 setVisible(false);
                 onClose();
             }, 1000);
@@ -26,7 +26,6 @@ export default function Toast({ message, onClose }) {
     }, [onClose]);
 
     if (!visible) return null;
-
 
     return (
     <div className={`toast ${isClosing ? "toast-closing" : ""}`}>

@@ -6,12 +6,10 @@ import './card.css';
 export default function Card({ title, description, time, onDelete, onEdit, onMoreInfo }) {
     const [openModal, setOpenModal] = useState(null);
     const charLimit = 30;
-    // const openModal = () => setOpenModal(true); 
-    // const closeModal = () => setOpenModal(false);
 
     const truncatedDescription = description.length > charLimit
-  ? description.slice(0, charLimit) + '...'
-  : description;
+    ? description.slice(0, charLimit) + '...'
+    : description;
 
 
     return (
@@ -25,7 +23,6 @@ export default function Card({ title, description, time, onDelete, onEdit, onMor
         <Modal
             isOpen={openModal === 'info'}
             onClose={() => setOpenModal(null)}
-            hasCloseBtn={true}
         >
             <h2>{title}</h2>
             <p>{description}</p>
@@ -34,7 +31,6 @@ export default function Card({ title, description, time, onDelete, onEdit, onMor
         <Modal
             isOpen={openModal === 'edit'}
             onClose={() => setOpenModal(null)}
-            hasCloseBtn={true}
         >
             <h2>Edit {title}</h2>
             <input

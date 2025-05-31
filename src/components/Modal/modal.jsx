@@ -3,7 +3,7 @@ import { useRef, useEffect, useState } from "react";
 import { X } from 'lucide-react'
 import './modal.css'; 
 
-export default function Modal({ isOpen, onClose, hasCloseBtn, children }) {
+export default function Modal({ isOpen, onClose, children }) {
     const modalRef = useRef(null);  
     const [isClosing, setIsClosing] = useState(false);
 
@@ -45,7 +45,6 @@ export default function Modal({ isOpen, onClose, hasCloseBtn, children }) {
             onKeyDown={handleKeyDown} 
             className={`modal ${isClosing ? 'closing' : ''}`}
             >
-            {hasCloseBtn && (
                 <button 
                 className="modal-close-btn" 
                 onClick={handleCloseModal} 
@@ -53,7 +52,6 @@ export default function Modal({ isOpen, onClose, hasCloseBtn, children }) {
                 >
                     <X size={20} />
                 </button>
-            )}
             {children}
         </dialog>
     )
