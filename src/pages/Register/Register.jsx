@@ -138,7 +138,8 @@ const Register = () => {
                             onChange={setConfirmPassword}
                         />
                     </div>
-                    {errors && errors.submit && (<div style={{ color: 'red', textAlign: 'center', marginTop: '1rem' }}>
+                    {errors?.confirmPassword && (<div className='error-message' style={{ marginTop: '0.5rem' }}>{errors.confirmPassword}</div>)}
+                    {errors?.submit && (<div style={{ color: 'red', textAlign: 'center', marginTop: '1rem' }}>
                         {errors.submit}
                         </div>
                     )}
