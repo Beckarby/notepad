@@ -7,16 +7,15 @@
 }
 
 .input-container label {
-  margin-bottom: 0.2rem;
+  margin-bottom: 0rem;
   font-weight: 500;
-  color: var(--text-primary);
   font-size: 0.875rem;
   text-transform: capitalize;
   letter-spacing: 0.025em;
 }
 
 .input-container input {
-  padding: 0.85em 1.25em;
+  padding: 1rem 1.20rem;
   border: 1px solid var(--text-secondary);
   border-radius: 12px;
   background-color: var(--button-bg);
@@ -48,6 +47,42 @@
   transition: opacity 0.3s ease;
 }
 
+.input-container input:focus::placeholder {
+  opacity: 0.6;
+}
+
+.input-container.error input {
+    border-color: #ef4444;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+.input-container.success input {
+    border-color: #10b981;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
 .input-container.floating {
     position: relative;
+}
+
+.input-container.floating label {
+    position: absolute;
+    left: 1.25rem;
+    top: 1rem;
+    background-color: var(--bg-primary);
+    padding: 0 0.25rem;
+    font-size: 1rem;
+    color: var(--text-secondary);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.input-container.floating input:focus + label,
+.input-container.floating input:not(:placeholder-shown) + label {
+    top: -0.5rem;
+    left: 1.25rem;
+    font-size: 0.75rem;
+    color: var(--accent-primary);
+    font-weight: 600;
 }

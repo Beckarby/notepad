@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import Modal from "../Modal/modal";
+import EditForm from "../CardForm/CardForm.jsx";
 import './card.css';
 
 export default function Card({ title, description, time, onDelete, onEdit, onMoreInfo }) {
@@ -31,12 +32,13 @@ export default function Card({ title, description, time, onDelete, onEdit, onMor
         <Modal
             isOpen={openModal === 'edit'}
             onClose={() => setOpenModal(null)}
-        >
-            <h2>Edit {title}</h2>
-            <input
-            placeholder="Edit title"
-            type="text"
-            ></input>
+            >
+          <EditForm
+            title={title}
+            description={description}
+            onSave={onEdit}
+            onClose={() => setOpenModal(null)}
+          />
         </Modal>
     </div>
   )
