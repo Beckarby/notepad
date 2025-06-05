@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "../Modal/modal";
 import EditForm from "../CardForm/CardForm.jsx";
 import './card.css';
@@ -12,12 +12,11 @@ export default function Card({ title, description, time, onDelete, onEdit, onMor
     ? description.slice(0, charLimit) + '...'
     : description;
 
-
     return (
     <div className='card'>
       <h2>{title}</h2>
       <p>{truncatedDescription}</p>
-      <button onClick={onDelete}>Delete</button>
+      <button onClick={() => setOpenModal('delete')}>Delete</button>
       <button onClick={() => setOpenModal('edit')}>Edit</button>
       <button onClick={() => setOpenModal('info')}>More Info</button>
 
@@ -39,6 +38,20 @@ export default function Card({ title, description, time, onDelete, onEdit, onMor
             onSave={onEdit}
             onClose={() => setOpenModal(null)}
           />
+        </Modal>
+        <Modal
+            isOpen={openModal === 'delete'}
+            onClose={() => setOpenModal(null)}
+        >
+            <div className="delete-modal">
+                <p>Confirm</p>
+                <h3>Are you sure you want to delete this card?</h3>
+                <button onClick={() => {
+                    onDelete(title);
+                    setOpenModal(null);
+                }}>Yes, Delete</button>
+                <button onClick={() => setOpenModal(null)}>Cancel</button>
+            </div>
         </Modal>
     </div>
   )

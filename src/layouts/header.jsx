@@ -2,12 +2,15 @@
 
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { auth } from '../config/firebase';
+import { signOut } from 'firebase/auth';
 import './header.css';
 import '../App.css';
 
 
 export default function Layout({ children }) {
     const [isDarkMode, setIsDarkMode] = useState(true);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     useEffect(() => {
         const savedTheme = localStorage.getItem('theme');
@@ -24,9 +27,21 @@ export default function Layout({ children }) {
         localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
     }, [isDarkMode])
 
+    useEffect(() => {
+        const unsubscribe = auth.onAuthStateChanged(user => {
+            setIsLoggedIn(!!user);
+        });
+        return () => unsubscribe();
+    }, []);
+
     const toggleTheme = () => {
         setIsDarkMode(!isDarkMode);
     }
+
+    const handleLogout = async () => {
+        await signOut(auth);
+    }
+
     return (
         <div className='app-container'>
             <header className="header">
@@ -37,12 +52,22 @@ export default function Layout({ children }) {
                     <ul>
                         <li><Link to="/">Home</Link></li>
                         <li><Link to="/user">User</Link></li>
-                        <li><Link to="/register">Register</Link></li>
-                        <li><Link to="/login">Login</Link></li>
+                        {!isLoggedIn && (
+                            <>
+                            <li><Link to="/register">Register</Link></li>
+                            <li><Link to="/login">Login</Link></li>
+                            </>
+                        )}
+                        { isLoggedIn && (
+                            <li>
+                                <button className='logout-button' onClick={handleLogout}>
+                                    Logout
+                                </button>
+                            </li>
+                        )}
                     </ul>
                 </nav>
                 <button className='theme-toggle' onClick={toggleTheme} aria-label='Toggle Theme'>
-                    {/* {isDarkMode ? src="/light.png" : src="/dark.png"} */}
                     <img src={isDarkMode ? "/bright.png" : "/dark.png"} alt="Toggle Theme" className='theme-image' />  
                 </button>
                 </div>

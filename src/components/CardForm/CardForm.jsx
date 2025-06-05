@@ -6,8 +6,24 @@ import Input from "../Input/input";
 function EditForm({ title, description, onSave, onClose }) {
     const [titleValue, setTitleValue] = useState(title);
     const [descriptionValue, setDescriptionValue] = useState(description);
+    const [error, setError] = useState("");
+
+    const titleLimit = 25;
+
+    const handleTitleChange = (value) => {
+        if (value.length > titleLimit) {
+            setError(`Title can't be more than ${titleLimit} characters.`);
+        } else {
+            setError("");
+            setTitleValue(value);
+        }
+    }
 
     const handleSubmit = () => {
+        if (titleValue.length > titleLimit) {
+            setError(`Title can't be more than ${titleLimit} characters.`);
+            return;
+        }
         onSave(titleValue, descriptionValue);
         onClose();
     }
@@ -20,8 +36,9 @@ function EditForm({ title, description, onSave, onClose }) {
                 type="text"
                 placeholder="Enter title"
                 value={titleValue}
-                onChange={setTitleValue}
+                onChange={handleTitleChange}
             />
+            {error && <div style={{ color: 'red', marginBottom: '0.5rem' }}>{error}</div>}
             <Input
                 label="Description"
                 type="text"
@@ -29,7 +46,7 @@ function EditForm({ title, description, onSave, onClose }) {
                 value={descriptionValue}
                 onChange={setDescriptionValue}
             />
-            <button onClick={handleSubmit}>
+            <button onClick={handleSubmit} disabled={!!error}>
                 Save Changes
             </button>
             <button onClick={onClose}>Cancel</button>
