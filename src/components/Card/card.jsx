@@ -7,7 +7,7 @@ import './card.css';
 
 export default function Card({ id, title, description, onDelete, onEdit }) {
     const [openModal, setOpenModal] = useState(null);
-    const charLimit = 30;
+    const charLimit = 60;
 
     const truncatedDescription = description.length > charLimit
     ? description.slice(0, charLimit) + '...'

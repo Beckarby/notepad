@@ -37,7 +37,7 @@ const Home = () => {
         return unsubscribe;
     }, [currentUser]);
 
-    const handleEdit = async (cardId) => {
+    const handleEdit = async (cardId, newTitle, newDescription) => {
         try {
             await updateDoc(doc(db, 'cards', cardId), {
                 title: newTitle,
@@ -57,6 +57,10 @@ const Home = () => {
     };
 
     const handleAddCard = async (newTitle, newDescription) => {
+        if (!currentUser) {
+            console.error("No user is currently logged in.");
+            return;
+        }
         try {
             await addDoc(collection(db, 'cards'), {
                 title: newTitle,
@@ -77,9 +81,9 @@ const Home = () => {
                     setOpenAddModal(true);
                 }} className='add-card-btn'>
                     <Plus className='plus-icon' />
-                     Add Card
+                        Add Card
                 </button>
-            </div>    
+            </div>
             <div className='container'>
                 {cards.map(card => (
                     <Card 
