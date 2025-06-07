@@ -37,6 +37,8 @@ export default function Card({ title, description, time, onDelete, onEdit, onMor
             description={description}
             onSave={onEdit}
             onClose={() => setOpenModal(null)}
+            isAddMode={false}
+            isOpen={openModal === 'edit'}
           />
         </Modal>
         <Modal

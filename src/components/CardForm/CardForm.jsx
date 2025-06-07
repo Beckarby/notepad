@@ -1,9 +1,9 @@
 'use client';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import './editform.css';
 import Input from "../Input/input";
 
-function EditForm({ title, description, onSave, onClose }) {
+function EditForm({ title, description, onSave, onClose, isAddMode = false, isOpen }) {
     const [titleValue, setTitleValue] = useState(title);
     const [descriptionValue, setDescriptionValue] = useState(description);
     const [error, setError] = useState("");
@@ -24,13 +24,26 @@ function EditForm({ title, description, onSave, onClose }) {
             setError(`Title can't be more than ${titleLimit} characters.`);
             return;
         }
+        if (isAddMode && !titleValue.trim() || !descriptionValue.trim()) {
+            setError("Title and description cannot be empty.");
+            return;
+        }
+
         onSave(titleValue, descriptionValue);
         onClose();
     }
 
+    useEffect(() => {
+        if (isOpen) {
+            setTitleValue(title);
+            setDescriptionValue(description);
+            setError("");
+        }
+    }, [isOpen, title, description]);
+
     return (
         <div>
-            <h2>Edit {title}</h2>
+            <h2>{isAddMode ? "Add New Card" : `Edit ${title}`}</h2>
             <Input
                 label="Title"
                 type="text"
@@ -47,7 +60,7 @@ function EditForm({ title, description, onSave, onClose }) {
                 onChange={setDescriptionValue}
             />
             <button onClick={handleSubmit} disabled={!!error}>
-                Save Changes
+                {isAddMode ? "Add Card" : "Save Changes"}
             </button>
             <button onClick={onClose}>Cancel</button>
         </div>
