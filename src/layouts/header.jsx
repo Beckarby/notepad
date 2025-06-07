@@ -1,6 +1,6 @@
 "use client"
 
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { auth } from '../config/firebase';
 import { signOut } from 'firebase/auth';
@@ -11,6 +11,7 @@ import '../App.css';
 export default function Layout({ children }) {
     const [isDarkMode, setIsDarkMode] = useState(true);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const savedTheme = localStorage.getItem('theme');
@@ -40,6 +41,8 @@ export default function Layout({ children }) {
 
     const handleLogout = async () => {
         await signOut(auth);
+        navigate('/login');
+        
     }
 
     return (
@@ -50,8 +53,11 @@ export default function Layout({ children }) {
                 <div className='header-content'>
                 <nav>
                     <ul>
-                        <li><Link to="/">Home</Link></li>
-                        <li><Link to="/user">User</Link></li>
+                        { isLoggedIn && (
+                            <>
+                                <li><Link to="/">Home</Link></li>
+                            </>
+                        )}
                         {!isLoggedIn && (
                             <>
                             <li><Link to="/register">Register</Link></li>

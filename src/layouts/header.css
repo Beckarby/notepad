@@ -218,7 +218,15 @@ header nav a:hover {
     }
 }
 
-
+.logout-button {
+    background: rgba(158, 24, 24, 0.1);
+    border: 1px solid var(--header-border);
+    color: var(--header-text);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.25s ease;    
+}
 
 @media (max-width: 480px) {
     .header nav ul {

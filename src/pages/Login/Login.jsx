@@ -1,21 +1,26 @@
 import { auth } from "../../config/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { useState } from "react";
-import Toast from "../../components/Toast/toast";
+import { useState, useEffect } from "react";
 import Input from "../../components/Input/input";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import './login.css';
-
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [rememberMe, setRememberMe] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [errors, setErrors] = useState("");
     const [success, setSuccess] = useState("");
-    const [toast, setToast] = useState(null);   
     const navigate = useNavigate();
+    const location = useLocation();
+
+
+    useEffect(() => {
+        setEmail('');
+        setPassword('');
+        setErrors('');
+        setSuccess('');
+    }, [location.pathname]);
 
     const validateForm = () => {
         if (!email.trim()) {
@@ -42,9 +47,10 @@ const Login = () => {
         try {
             await signInWithEmailAndPassword(auth, email, password);
             setSuccess("Login successful");
-            setTimeout(() => {
-                navigate('/');
-            }, 1500)
+            setEmail('');
+            setPassword('');
+
+            navigate('/');
         } catch (err) {
             console.error("Login error:", err);
 
@@ -65,12 +71,6 @@ const Login = () => {
             setIsLoading(false);
         }
     };
-
-    // Function to handle social login (e.g., Google, Facebook) 
-    // TODO: Implement actual social login logic
-    const handleSocialLogin = (provider) => {
-        console.log(`Login with ${provider} `);
-    }
 
     return ( 
         <div className="login-container">
@@ -98,15 +98,6 @@ const Login = () => {
                             onChange={setPassword} 
                         />
                     </div>
-                    <div className="remember-me">
-                        <input
-                            type="checkbox" 
-                            id="rememberMe"
-                            checked={rememberMe} 
-                            onChange={(e) => setRememberMe(e.target.checked)}
-                        />
-                        <label htmlFor="rememberMe">Remember Me</label>
-                    </div>
                     {errors && <div className="error-message">{errors}</div>}
                     {success &&<div className="success-message">{success}</div>}
 
@@ -117,15 +108,6 @@ const Login = () => {
                     </button>
 
                     <div className="social-login">
-                        <div className="divider">
-                            <span>or continue with</span>
-                        </div>
-                        <div className="social-buttons">
-                            <button className="social-button" onClick={() => handleSocialLogin('Google')}>
-                                <span>🔍</span>
-                                Google
-                            </button>
-                        </div>
                         <div className="login-footer">
                         <p>
                             Don't have an account? <Link to="/register">Create one here</Link>

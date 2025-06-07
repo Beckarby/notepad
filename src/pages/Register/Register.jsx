@@ -2,9 +2,8 @@ import { auth } from '../../config/firebase'
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import Toast from '../../components/Toast/toast';
 import Input from '../../components/Input/input';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 import './register.css';
 
 const Register = () => {
@@ -16,6 +15,16 @@ const Register = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [errors, setErrors] = useState(null);
     const navigate = useNavigate();
+    const location = useLocation();
+
+    useEffect(() => {
+        setNick('');
+        setEmail('');
+        setPassword('');
+        setConfirmPassword('');
+        setErrors(null);
+        setToast(null);
+    }, [location.pathname]);
 
     const ValidateForm = () => {
         const newErrors = {};
@@ -58,6 +67,11 @@ const Register = () => {
         setIsLoading(true);
         try {
             await createUserWithEmailAndPassword(auth, email, password);
+            setNick('');
+            setEmail('');
+            setPassword('');
+            setConfirmPassword('');
+
             setToast({
                 message: "Registration successful! Redirecting to login...",
                 onClose: () => {
@@ -150,11 +164,9 @@ const Register = () => {
                     >{isLoading ? "" : "Create Account"}
                      </button>
                 </form>
-
                     <div className='register-footer'>
                         <p>Already have an account? <Link to="/login">Login here</Link></p>
                     </div>
-                
                 </div>
         </div>
         

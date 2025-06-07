@@ -4,7 +4,8 @@ import Modal from "../Modal/modal";
 import EditForm from "../CardForm/CardForm.jsx";
 import './card.css';
 
-export default function Card({ title, description, time, onDelete, onEdit, onMoreInfo }) {
+
+export default function Card({ id, title, description, onDelete, onEdit }) {
     const [openModal, setOpenModal] = useState(null);
     const charLimit = 30;
 
@@ -49,7 +50,7 @@ export default function Card({ title, description, time, onDelete, onEdit, onMor
                 <p>Confirm</p>
                 <h3>Are you sure you want to delete this card?</h3>
                 <button onClick={() => {
-                    onDelete(title);
+                    onDelete(id);
                     setOpenModal(null);
                 }}>Yes, Delete</button>
                 <button onClick={() => setOpenModal(null)}>Cancel</button>

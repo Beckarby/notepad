@@ -1,40 +1,73 @@
 import Card from '../../components/Card/card';
 import Modal from '../../components/Modal/modal';
 import EditForm from '../../components/CardForm/CardForm';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { Plus } from 'lucide-react';
+import { db } from '../../config/firebase';
+import { collection, query, where, onSnapshot, addDoc, doc, updateDoc, deleteDoc } from 'firebase/firestore';
+import { auth } from '../../config/firebase';
 
 const Home = () => {
     const [openAddModal, setOpenAddModal] = useState(false);
-    const [cards, setCards] = useState([
-        { id: 1, title: "Card 1", description: "Once upon a time there was a lovely princess.", time: "10:00 AM" },
-        { id: 2, title: "Card 2", description: "This is the second card.", time: "11:00 AM" },
-        { id: 3, title: "Card 3", description: "This is the third card.", time: "12:00 PM" },
-        { id: 4, title: "Card 4", description: "This is te fourth card.", time: "01:00 PM"},
-        { id: 5, title: "Card 5", description: "This is te fourth card.", time: "01:00 PM"},
-        { id: 6, title: "Card 6", description: "This is te fourth card.", time: "01:00 PM"}
-        
-    ]);
+    const [cards, setCards] = useState([]);
+    const [currentUser, setCurrentUser] = useState(null);
 
-    const handleEdit = (cardId, newTitle, newDescription) => {
-        setCards(cards.map(card => 
-            card.id === cardId
-            ? { ...card, title: newTitle, description: newDescription }
-            : card
-        ));
+    useEffect(() => {
+        const unsubscribe = auth.onAuthStateChanged(user => {
+            setCurrentUser(user);
+        });
+        return unsubscribe;
+    }, []);
+
+    useEffect(() => {
+        if (!currentUser) return;
+
+        const q = query(
+            collection(db, 'cards'),
+            where('userId', '==', currentUser.uid)
+        );
+
+        const unsubscribe = onSnapshot(q, (snapshot) => {
+            const cardsData = [];
+            snapshot.forEach(doc => {
+                cardsData.push({ id: doc.id, ...doc.data() });
+            });
+            setCards(cardsData);
+        });
+        return unsubscribe;
+    }, [currentUser]);
+
+    const handleEdit = async (cardId) => {
+        try {
+            await updateDoc(doc(db, 'cards', cardId), {
+                title: newTitle,
+                description: newDescription,
+            });
+        } catch (error) {
+            console.error("Error updating card:", error);
+        }
     };
 
-    const handleDelete = (cardTitle) => {
-        setCards(prevCards => prevCards.filter(card => card.title !== cardTitle));
+    const handleDelete = async (cardId) => {
+        try {
+            await deleteDoc(doc(db, 'cards', cardId))
+        } catch (error) {
+            console.error("Error deleting card:", error);
+        }
     };
 
-    const handleAddCard = (newTitle, newDescription) => {
-        const newCard = {
-            id: Math.max(...cards.map(c => c.id)) + 1,
-            title: newTitle,
-            description: newDescription,
-            time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-        };
-        setCards([newCard, ...cards]);
+    const handleAddCard = async (newTitle, newDescription) => {
+        try {
+            await addDoc(collection(db, 'cards'), {
+                title: newTitle,
+                description: newDescription,
+                userId: currentUser.uid,
+                createdAt: new Date(),
+                time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+            });
+        } catch (error) {
+            console.error("Error adding card:", error);
+        }
     }
     
     return (
@@ -43,17 +76,19 @@ const Home = () => {
                 <button onClick={() => {
                     setOpenAddModal(true);
                 }} className='add-card-btn'>
-                    + Add Card
+                    <Plus className='plus-icon' />
+                     Add Card
                 </button>
             </div>    
             <div className='container'>
                 {cards.map(card => (
                     <Card 
                         key={card.id}
+                        id={card.id}
                         title={card.title}
                         description={card.description}
                         onEdit={(title, desc) => handleEdit(card.id, title, desc)} 
-                        onDelete={() => handleDelete(card.title)}
+                        onDelete={() => handleDelete(card.id)}
                     />
                 ))}
             </div>    
