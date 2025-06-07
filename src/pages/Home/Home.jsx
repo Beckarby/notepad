@@ -2,7 +2,7 @@ import Card from '../../components/Card/card';
 import Modal from '../../components/Modal/modal';
 import EditForm from '../../components/CardForm/CardForm';
 import { useState, useEffect } from 'react';
-import { Plus } from 'lucide-react';
+import { Plus, LayoutGrid } from 'lucide-react';
 import { db } from '../../config/firebase';
 import { collection, query, where, onSnapshot, addDoc, doc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { auth } from '../../config/firebase';
@@ -11,6 +11,8 @@ const Home = () => {
     const [openAddModal, setOpenAddModal] = useState(false);
     const [cards, setCards] = useState([]);
     const [currentUser, setCurrentUser] = useState(null);
+    const [isGrid, setIsGrid] = useState(true);
+    const [isFading, setIsFading] = useState(false);
 
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(user => {
@@ -73,6 +75,14 @@ const Home = () => {
             console.error("Error adding card:", error);
         }
     }
+
+    const handleToggleLayout = () => {
+        setIsFading(true);
+        setTimeout(() => {
+            setIsGrid(prev => !prev);
+            setIsFading(false)
+        }, 300)
+    }
     
     return (
         <div>
@@ -83,8 +93,14 @@ const Home = () => {
                     <Plus className='plus-icon' />
                         Add Card
                 </button>
+                <button  onClick={handleToggleLayout} className='add-card-btn'>
+                    <LayoutGrid className='plus-icon'/>
+                    Change Layout
+                </button>
             </div>
-            <div className='container'>
+            <div className=
+                {`${isGrid ? 'container grid-layout' : 'container list-layout'}${isFading ? 'layout-fade' : ''}`
+            }>
                 {cards.map(card => (
                     <Card 
                         key={card.id}

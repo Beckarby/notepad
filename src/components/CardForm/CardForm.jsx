@@ -28,7 +28,14 @@ function EditForm({ title, description, onSave, onClose, isAddMode = false, isOp
             setError("Title and description cannot be empty.");
             return;
         }
-
+        if (isAddMode && !titleValue.trim()) {
+            setError("Title cannot be empty.");
+            return;
+        }
+        if (isAddMode && !descriptionValue.trim()) {
+            setError("Description cannot be empty.");
+            return;
+        }
         onSave(titleValue, descriptionValue);
         onClose();
     }

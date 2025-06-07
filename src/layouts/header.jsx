@@ -55,7 +55,7 @@ export default function Layout({ children }) {
                     <ul>
                         { isLoggedIn && (
                             <>
-                                <li><Link to="/">Home</Link></li>
+                                Home
                             </>
                         )}
                         {!isLoggedIn && (
