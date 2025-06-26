@@ -1,6 +1,5 @@
 'use client';
 import { useState, useEffect } from "react";
-import './editform.css';
 import Input from "../Input/input";
 
 function EditForm({ title, description, onSave, onClose, isAddMode = false, isOpen }) {
